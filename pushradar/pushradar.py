@@ -1,6 +1,10 @@
 import json
 import requests
-import urllib
+
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
 
 
 class PushRadar:
@@ -23,7 +27,7 @@ class PushRadar:
             return True
         else:
             raise Exception('An error occurred while calling the API. Server returned: ' +
-                            response['body'])
+                            json.dumps(response['body']))
 
     def auth(self, channel_name):
         if (channel_name is None) or (channel_name.strip() == ''):
@@ -31,18 +35,19 @@ class PushRadar:
         if not channel_name.startswith('private-'):
             raise Exception("Channel authentication can only be used with private channels.")
         response = self._do_http_request('GET', self.__api_endpoint + '/channels/auth?channel=' +
-                                         urllib.quote(channel_name.encode("utf-8")), {})
+                                         quote(channel_name.encode("utf-8")), {})
         if response['status'] == 200:
-            return json.loads(response['body']).token
+            return response['body']['token']
         else:
             raise Exception('There was a problem receiving a channel authentication token. Server returned: ' +
-                            response['body'])
+                            json.dumps(response['body']))
 
     def _do_http_request(self, method, url, data):
         headers = {'X-PushRadar-Library': 'pushradar-server-python ' + self.__version,
-                   'Authorization': 'Bearer ' + self.__secret_key}
+                   'Authorization': 'Bearer ' + self.__secret_key,
+                   'Content-Type': 'application/json'}
         r = None
-        if method == 'post':
+        if method.lower() == 'post':
             r = requests.post(url, data=json.dumps(data), headers=headers)
         else:
             r = requests.get(url, data=None, headers=headers)
