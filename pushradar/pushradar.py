@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.0-alpha.1'
+    __version = '3.0.0-alpha.3'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
@@ -27,7 +27,7 @@ class PushRadar:
             return True
         else:
             raise Exception('An error occurred while calling the API. Server returned: ' +
-                            response['body'])
+                            json.dumps(response['body']))
 
     def auth(self, channel_name, socket_id):
         if (channel_name is None) or (channel_name.strip() == ''):
@@ -43,7 +43,7 @@ class PushRadar:
             return response['body']['token']
         else:
             raise Exception('There was a problem receiving a channel authentication token. Server returned: ' +
-                            response['body'])
+                            json.dumps(response['body']))
 
     def _do_http_request(self, method, url, data):
         headers = {'X-PushRadar-Library': 'pushradar-server-python ' + self.__version,
