@@ -62,12 +62,13 @@ Private channels require authentication and start with the prefix **private-**. 
 You will need to set up an authentication endpoint that returns a token using the `auth(...)` method if the user is allowed to subscribe to the channel. For example:
 
 ```python
-radar = PushRadar('your-secret-key')
+radar = pushradar.PushRadar('your-secret-key')
 if request.method == 'GET':
     channel_name = request.GET.get('channelName')
+    socket_id = request.GET.get('socketID')
     # is user allowed to access channel?
     if True:
-        return json.dumps({"token": radar.auth(channel_name)})
+        return json.dumps({"token": radar.auth(channel_name, socket_id)})
 ```
 
 Then register your authentication endpoint by calling the `auth(...)` method client-side:
@@ -82,5 +83,5 @@ Complete documentation for PushRadar's Python server library can be found at: <h
 
 ## License
 
-Copyright 2021, PushRadar. PushRadar's Python server library is licensed under the MIT license:
-http://www.opensource.org/licenses/mit-license.php
+Copyright © 2021, PushRadar. PushRadar's Python server library is licensed under the MIT license:
+<https://opensource.org/licenses/mit-license.php>
