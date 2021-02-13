@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pushradar',
-    version='3.0.0-alpha.1',
+    version='3.0.0-alpha.2',
     description="PushRadar's official Python server library.",
     url='https://github.com/pushradar/pushradar-server-python',
     author='PushRadar',

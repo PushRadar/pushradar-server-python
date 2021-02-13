@@ -27,20 +27,23 @@ class PushRadar:
             return True
         else:
             raise Exception('An error occurred while calling the API. Server returned: ' +
-                            json.dumps(response['body']))
+                            response['body'])
 
-    def auth(self, channel_name):
+    def auth(self, channel_name, socket_id):
         if (channel_name is None) or (channel_name.strip() == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         if not channel_name.startswith('private-'):
             raise Exception("Channel authentication can only be used with private channels.")
+        if (socket_id is None) or (socket_id.strip() == ''):
+            raise Exception("Socket ID empty. Please pass through a socket ID.")
         response = self._do_http_request('GET', self.__api_endpoint + '/channels/auth?channel=' +
-                                         quote(channel_name.encode("utf-8")), {})
+                                         quote(channel_name.encode("utf-8")) + '&socketID=' +
+                                         quote(socket_id.encode("utf-8")), {})
         if response['status'] == 200:
             return response['body']['token']
         else:
             raise Exception('There was a problem receiving a channel authentication token. Server returned: ' +
-                            json.dumps(response['body']))
+                            response['body'])
 
     def _do_http_request(self, method, url, data):
         headers = {'X-PushRadar-Library': 'pushradar-server-python ' + self.__version,
