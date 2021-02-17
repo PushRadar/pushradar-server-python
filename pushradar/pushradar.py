@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.0-alpha.3'
+    __version = '3.0.0-alpha.4'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
@@ -22,7 +22,7 @@ class PushRadar:
         if (channel_name is None) or (channel_name.strip() == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         response = self._do_http_request('POST', self.__api_endpoint + '/broadcasts',
-                                         {'channel': channel_name.strip(), 'data': data})
+                                         {'channel': channel_name.strip(), 'data': json.dumps(data)})
         if response['status'] == 200:
             return True
         else:
