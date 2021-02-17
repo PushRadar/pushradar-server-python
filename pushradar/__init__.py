@@ -14,6 +14,6 @@ __title__ = 'PushRadar'
 __authors__ = 'PushRadar'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2021 PushRadar.'
-__version__ = '3.0.0-alpha.3'
+__version__ = '3.0.0-alpha.4'
 
 __all__ = ['PushRadar']
