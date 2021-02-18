@@ -1,3 +1,7 @@
+## 3.0.1 (2021-02-18)
+
+[FIXED] Improved validation; added checks for variables being of the type string
+
 ## 3.0.0 (2021-02-18)
 
 [NEW] Updated for release of PushRadar v3
