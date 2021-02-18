@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.1'
+    __version = '3.0.2'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
@@ -23,7 +23,7 @@ class PushRadar:
     def broadcast(self, channel_name, data):
         if not isinstance(channel_name, str):
             raise Exception("Channel name must be a string.")
-        if (channel_name is None) or (channel_name == ''):
+        if (channel_name is None) or (channel_name.strip() == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         response = self._do_http_request('POST', self.__api_endpoint + '/broadcasts',
                                          {'channel': channel_name, 'data': json.dumps(data)})
@@ -36,13 +36,13 @@ class PushRadar:
     def auth(self, channel_name, socket_id):
         if not isinstance(channel_name, str):
             raise Exception("Channel name must be a string.")
-        if (channel_name is None) or (channel_name == ''):
+        if (channel_name is None) or (channel_name.strip() == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         if not channel_name.startswith('private-'):
             raise Exception("Channel authentication can only be used with private channels.")
         if not isinstance(socket_id, str):
             raise Exception("Socket ID must be a string.")
-        if (socket_id is None) or (socket_id == ''):
+        if (socket_id is None) or (socket_id.strip() == ''):
             raise Exception("Socket ID empty. Please pass through a socket ID.")
         response = self._do_http_request('GET', self.__api_endpoint + '/channels/auth?channel=' +
                                          quote(channel_name.encode("utf-8")) + '&socketID=' +
