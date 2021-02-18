@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.0-alpha.5'
+    __version = '3.0.0'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
