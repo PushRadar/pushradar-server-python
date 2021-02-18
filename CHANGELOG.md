@@ -1,3 +1,7 @@
+## 3.0.0-alpha.5 (2021-02-18)
+
+[CHANGED] Changed to not trim channel names, secret keys and socket IDs
+
 ## 3.0.0-alpha.4 (2021-02-17)
 
 [FIXED] Fixed problem regarding incorrect types of data
@@ -10,6 +14,6 @@
 
 [CHANGED] Made channel authentication more secure
 
-## 3.0.0-alpha.1 (2021-02-08)
+## 3.0.0-alpha.1 (2021-02-09)
 
 [NEW] Work on base code of package, compatible with the next release of PushRadar
