@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.0-alpha.4'
+    __version = '3.0.0-alpha.5'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
@@ -16,13 +16,13 @@ class PushRadar:
         if (secret_key is None) or (not secret_key.startswith("sk_")):
             raise Exception("Please provide your PushRadar secret key. You can find it on the API page of your "
                             "dashboard.")
-        self.__secret_key = secret_key.strip()
+        self.__secret_key = secret_key
 
     def broadcast(self, channel_name, data):
-        if (channel_name is None) or (channel_name.strip() == ''):
+        if (channel_name is None) or (channel_name == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         response = self._do_http_request('POST', self.__api_endpoint + '/broadcasts',
-                                         {'channel': channel_name.strip(), 'data': json.dumps(data)})
+                                         {'channel': channel_name, 'data': json.dumps(data)})
         if response['status'] == 200:
             return True
         else:
@@ -30,11 +30,11 @@ class PushRadar:
                             json.dumps(response['body']))
 
     def auth(self, channel_name, socket_id):
-        if (channel_name is None) or (channel_name.strip() == ''):
+        if (channel_name is None) or (channel_name == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
         if not channel_name.startswith('private-'):
             raise Exception("Channel authentication can only be used with private channels.")
-        if (socket_id is None) or (socket_id.strip() == ''):
+        if (socket_id is None) or (socket_id == ''):
             raise Exception("Socket ID empty. Please pass through a socket ID.")
         response = self._do_http_request('GET', self.__api_endpoint + '/channels/auth?channel=' +
                                          quote(channel_name.encode("utf-8")) + '&socketID=' +
