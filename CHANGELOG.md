@@ -1,3 +1,7 @@
+## 3.0.0 (2021-02-18)
+
+[NEW] Updated for release of PushRadar v3
+
 ## 3.0.0-alpha.5 (2021-02-18)
 
 [CHANGED] Changed to not trim channel names, secret keys and socket IDs
