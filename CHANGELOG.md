@@ -1,3 +1,7 @@
+## 3.0.2 (2021-02-18)
+
+[CHANGED] More improvements to validation, checking for empty strings
+
 ## 3.0.1 (2021-02-18)
 
 [FIXED] Improved validation; added checks for variables being of the type string
