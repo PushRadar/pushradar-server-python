@@ -8,7 +8,7 @@ except ImportError:
 
 
 class PushRadar:
-    __version = '3.0.2'
+    __version = '3.1.0'
     __api_endpoint = 'https://api.pushradar.com/v3'
     __secret_key = None
 
@@ -38,8 +38,8 @@ class PushRadar:
             raise Exception("Channel name must be a string.")
         if (channel_name is None) or (channel_name.strip() == ''):
             raise Exception("Channel name empty. Please provide a channel name.")
-        if not channel_name.startswith('private-'):
-            raise Exception("Channel authentication can only be used with private channels.")
+        if not (channel_name.startswith('private-') or channel_name.startswith('presence-')):
+            raise Exception("Channel authentication can only be used with private and presence channels.")
         if not isinstance(socket_id, str):
             raise Exception("Socket ID must be a string.")
         if (socket_id is None) or (socket_id.strip() == ''):
@@ -51,6 +51,19 @@ class PushRadar:
             return response['body']['token']
         else:
             raise Exception('There was a problem receiving a channel authentication token. Server returned: ' +
+                            json.dumps(response['body']))
+
+    def register_client_data(self, socket_id, client_data):
+        if not isinstance(socket_id, str):
+            raise Exception("Socket ID must be a string.")
+        if (socket_id is None) or (socket_id.strip() == ''):
+            raise Exception("Socket ID empty. Please pass through a socket ID.")
+        response = self._do_http_request('POST', self.__api_endpoint + '/client-data',
+                                         {'socketID': socket_id, 'clientData': json.dumps(client_data)})
+        if response['status'] == 200:
+            return True
+        else:
+            raise Exception('An error occurred while calling the API. Server returned: ' +
                             json.dumps(response['body']))
 
     def _do_http_request(self, method, url, data):
