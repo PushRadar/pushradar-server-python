@@ -1,3 +1,7 @@
+## 3.1.0 (2021-04-05)
+
+[NEW] Added support for client data registration
+
 ## 3.0.2 (2021-02-18)
 
 [CHANGED] More improvements to validation, checking for empty strings
